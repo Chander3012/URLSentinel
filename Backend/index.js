@@ -9,8 +9,9 @@ const app = express();
 
 // ✅ Allow your frontend (Vercel) to connect with this backend
 app.use(cors({
-  origin: 'https://url-sentinel-5xx5e0cmz-chander3012s-projects.vercel.app/', // 🔁 Replace with your real frontend URL
-  credentials: true
+  origin: 'https://url-sentinel.vercel.app', // 🔁 Replace with your real frontend URL
+   methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type']
 }));
 
 app.use(express.json());
