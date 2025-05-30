@@ -15,14 +15,18 @@ const ScanResult = () => {
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState('');
 
- const officialDomains = {
-  instagram: 'instagram.com',
-  whatsapp: 'whatsapp.com',
-  facebook: 'facebook.com',
-  amazone: 'Amazone.com',
-  Amazone: 'Amazone.in',
-  Flipkart:'flipkart.com',
-};
+  // Use environment variable for backend base URL
+  // eslint-disable-next-line no-undef
+  const API_BASE = process.env.REACT_APP_API_BASE_URL;
+
+  const officialDomains = {
+    instagram: 'instagram.com',
+    whatsapp: 'whatsapp.com',
+    facebook: 'facebook.com',
+    amazone: 'Amazone.com',
+    Amazone: 'Amazone.in',
+    Flipkart: 'flipkart.com',
+  };
 
   useEffect(() => {
     if (!scannedUrl) {
@@ -43,7 +47,7 @@ const ScanResult = () => {
     }
 
     return () => clearInterval(countdownTimer);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countdown]);
 
   const fetchScanAndPreview = async () => {
@@ -52,24 +56,28 @@ const ScanResult = () => {
     setPreview(null);
 
     try {
-      const isPhishing = Object.entries(officialDomains).some(([keyword, officialDomain]) => {
-  const lowerUrl = scannedUrl.toLowerCase();
-  return lowerUrl.includes(keyword) && !lowerUrl.includes(officialDomain);
-});
+      const isPhishing = Object.entries(officialDomains).some(
+        ([keyword, officialDomain]) => {
+          const lowerUrl = scannedUrl.toLowerCase();
+          return lowerUrl.includes(keyword) && !lowerUrl.includes(officialDomain);
+        }
+      );
 
       if (isPhishing) {
         setResult({
           safe: false,
-          shortened: scannedUrl.includes('bit.ly') || scannedUrl.includes('tinyurl'),
+          shortened:
+            scannedUrl.includes('bit.ly') || scannedUrl.includes('tinyurl'),
           threats: {
             phishing: true,
             impersonation: 'This link pretends to be a trusted service.',
             suspiciousDomain: scannedUrl,
-            details: 'This URL resembles a known platform but is hosted on an untrusted domain.'
-          }
+            details:
+              'This URL resembles a known platform but is hosted on an untrusted domain.',
+          },
         });
       } else {
-        const res = await fetch('http://localhost:4000/api/check-url', {
+        const res = await fetch(`${API_BASE}/api/check-url`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url: scannedUrl }),
@@ -83,7 +91,11 @@ const ScanResult = () => {
           setResult(data);
 
           if (data.safe) {
-            const previewRes = await fetch(`https://api.linkpreview.net/?key=946b86fc02ce6132234be8de84412244&q=${encodeURIComponent(scannedUrl)}`);
+            const previewRes = await fetch(
+              `https://api.linkpreview.net/?key=946b86fc02ce6132234be8de84412244&q=${encodeURIComponent(
+                scannedUrl
+              )}`
+            );
             const previewData = await previewRes.json();
 
             if (previewData?.title || previewData?.image) {
@@ -109,13 +121,17 @@ const ScanResult = () => {
       <Navbar />
       <main className={styles.scanResultMain}>
         <h1>Scan Result</h1>
-        <p className={styles.urlDisplay}><strong>URL Scanned:</strong> {scannedUrl}</p>
+        <p className={styles.urlDisplay}>
+          <strong>URL Scanned:</strong> {scannedUrl}
+        </p>
 
         <section className={styles.resultSection}>
           {loading && countdown > 0 && (
             <>
               <p>🔍 Initializing Scan...</p>
-              <p>⏳ Please wait: <strong>{countdown}</strong> seconds remaining</p>
+              <p>
+                ⏳ Please wait: <strong>{countdown}</strong> seconds remaining
+              </p>
             </>
           )}
 
@@ -126,9 +142,7 @@ const ScanResult = () => {
             </>
           )}
 
-          {!loading && error && (
-            <p className={styles.unsafe}>⚠️ {error}</p>
-          )}
+          {!loading && error && <p className={styles.unsafe}>⚠️ {error}</p>}
 
           {!loading && result?.safe && (
             <>
@@ -168,7 +182,9 @@ const ScanResult = () => {
 
           {!loading && result && !result.safe && (
             <>
-              <p className={styles.unsafe}>⚠️ Warning! This link is unsafe or suspicious.</p>
+              <p className={styles.unsafe}>
+                ⚠️ Warning! This link is unsafe or suspicious.
+              </p>
 
               {result.shortened && (
                 <p style={{ color: 'orange' }}>
@@ -177,14 +193,16 @@ const ScanResult = () => {
               )}
 
               {result.threats && (
-                <pre style={{
-                  background: '#ffe5e5',
-                  padding: '10px',
-                  borderRadius: '8px',
-                  color: '#b30000',
-                  maxHeight: '300px',
-                  overflowY: 'auto'
-                }}>
+                <pre
+                  style={{
+                    background: '#ffe5e5',
+                    padding: '10px',
+                    borderRadius: '8px',
+                    color: '#b30000',
+                    maxHeight: '300px',
+                    overflowY: 'auto',
+                  }}
+                >
                   {JSON.stringify(result.threats, null, 2)}
                 </pre>
               )}
