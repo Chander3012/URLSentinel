@@ -16,7 +16,7 @@ const ScanResult = () => {
   const [error, setError] = useState('');
 
   // Use environment variable for backend base URL
-  const API_BASE = process.env.REACT_APP_API_BASE_URL;
+  const API_BASE = import.meta.env.VITE_REACT_APP_API_BASE_URL
 
   const officialDomains = {
     instagram: 'instagram.com',
