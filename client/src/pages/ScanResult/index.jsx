@@ -16,7 +16,6 @@ const ScanResult = () => {
   const [error, setError] = useState('');
 
   // Use environment variable for backend base URL
-  // eslint-disable-next-line no-undef
   const API_BASE = process.env.REACT_APP_API_BASE_URL;
 
   const officialDomains = {
