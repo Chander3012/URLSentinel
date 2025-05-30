@@ -1,0 +1,559 @@
+:root {
+  --violet: #6e44ff;
+  --green: #00b894;
+  --deep-purple: #341f97;
+  --bg-light: #f7f9fc;
+  --text-dark: #2d2d2d;
+}
+
+.wrapper {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  width: 100%;          /* fixed width for whole page */
+  margin: 0 auto;         /* center horizontally */
+  overflow-x: auto;       /* horizontal scroll if viewport smaller */
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--deep-purple), var(--green));
+  color: #fff;
+  text-align: center;
+  padding: 90px 20px;
+  min-height: 90vh;
+  box-sizing: border-box;
+}
+
+.heroContent {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.heroContent h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.heroContent p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.ctaBtn {
+  background-color: #6e44ff; /* violet */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+}
+
+.ctaBtn:hover {
+  background-color: #00b894; /* green */
+}
+
+
+.linkForm {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.linkInput {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 30px;
+  border: none;
+  font-size: 1rem;
+  outline: none;
+}
+
+.submitBtn {
+  background-color: var(--violet);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submitBtn:hover {
+  background-color: var(--green);
+  transform: translateY(-2px);
+}
+
+.tagline {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 25px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 35px;
+  flex-wrap: wrap;
+}
+
+.featureItem {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  user-select: none;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: default;
+}
+
+.featureItem:hover {
+  box-shadow: 0 0 12px 4px rgba(110, 68, 255, 0.7), 0 4px 15px rgba(0, 184, 148, 0.6);
+  transform: translateY(-4px);
+}
+
+.secondaryBtn {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-left: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.secondaryBtn:hover {
+  background-color: white;
+  color: var(--deep-purple);
+}
+
+.userCount {
+  margin-top: 40px;
+  font-weight: 500;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+
+
+.section, .sectionAlt {
+  width: 100%;
+  margin: 0 auto;
+  padding: 80px 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.section {
+  background: #ffffff;
+}
+
+.sectionAlt {
+  background: #edf7f6;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: var(--violet);
+  font-weight: 700;
+}
+
+.cardGrid {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 30px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  padding: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.card h3 {
+  color: var(--deep-purple);
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.step {
+  background: #fff;
+  padding: 20px;
+  border-left: 5px solid var(--green);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: background 0.3s;
+  font-weight: 500;
+}
+
+.step:hover {
+  background: #e0f7ef;
+}
+
+a {
+  color: var(--violet);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Responsive - horizontal scroll on small widths */
+@media (max-width: 1024px) {
+  .wrapper,
+  .section,
+  .sectionAlt,
+  .heroContent {
+    width: 100%;
+  }
+}
+
+.aboutSection {
+  background-color: #f5f7fa;
+  padding: 70px 40px;
+  max-width: 100%;
+  margin: 60px auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.aboutContent {
+  max-width: 1050px;
+  margin: 0 auto;
+  color: #333;
+  line-height: 1.6;
+  font-size: 1.125rem;
+}
+
+.aboutSection h2 {
+  font-weight: 700;
+  font-size: 2.75rem;
+  margin-bottom: 30px;
+  color: #222;
+  text-align: center;
+  letter-spacing: 1.2px;
+}
+
+.aboutContent p {
+  margin-bottom: 20px;
+  color: #444;
+  font-weight: 400;
+  text-align: justify;
+}
+
+@media (max-width: 768px) {
+  .aboutSection {
+    padding: 50px 20px;
+    margin: 40px 15px;
+  }
+
+  .aboutSection h2 {
+    font-size: 2rem;
+  }
+
+  .aboutContent {
+    font-size: 1rem;
+  }
+}
+
+
+/* How It Works Section */
+.howItWorksSection {
+  background-color: #ffffff;
+  max-width: 100%;
+  margin: 60px auto;
+  padding: 70px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+.howItWorksSection h2 {
+  font-weight: 700;
+  font-size: 2.75rem;
+  margin-bottom: 45px;
+  color: #222;
+  letter-spacing: 1.2px;
+}
+
+.stepsContainer {
+  display: flex;
+  justify-content: space-between;
+  max-width: 800px;
+  margin: 0 auto;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.step {
+  flex: 1 1 250px;
+  background: #f5f7fa;
+  border-radius: 10px;
+  padding: 30px 25px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.3s ease;
+  cursor: default;
+}
+
+.step:hover {
+  background-color: var(--green);
+  color: white;
+}
+
+.stepNumber {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--green);
+  background-color: #d5f1e5;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  margin-bottom: 20px;
+}
+
+/* FAQ Section */
+.faqSection {
+  background-color: #f9fbfc; /* lighter and cleaner */
+  max-width: 100%; /* fixed width */
+  margin: 60px auto;
+  padding: 70px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+}
+
+.faqSection h2 {
+  font-weight: 700;
+  font-size: 2.75rem;
+  margin-bottom: 45px;
+  color: #3b3b3b; /* softened heading color */
+  text-align: center;
+  letter-spacing: 1.2px;
+}
+
+.faqContainer {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.faqItem {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px 25px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+  cursor: pointer;
+  font-size: 1.125rem;
+  transition: box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.faqItem:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Colored curved bottom accent */
+.faqItem::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(90deg, #957dff, #7de0b2); /* softer violet to green */
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  pointer-events: none;
+}
+
+.faqItem summary {
+  font-weight: 600;
+  outline: none;
+  list-style: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.faqItem p {
+  margin-top: 12px;
+  color: #555;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .stepsContainer {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .step {
+    flex: 1 1 auto;
+  }
+
+  .faqSection,
+  .howItWorksSection {
+    padding: 50px 20px;
+    margin: 40px 15px;
+  }
+
+  .faqSection h2,
+  .howItWorksSection h2 {
+    font-size: 2rem;
+  }
+}
+
+
+.contactSection {
+  max-width: 100%;
+  margin: 60px auto 80px;
+  padding: 60px 40px;
+  background-color: #f9fbfc;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+  text-align: center;
+}
+
+.contactSection h2 {
+  font-size: 2.75rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #3b3b3b;
+}
+
+.contactSection p {
+  font-size: 1.125rem;
+  margin-bottom: 40px;
+  color: #555;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contactForm {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  text-align: left;
+}
+
+.contactForm label {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: #555;
+  display: block;
+}
+
+.contactForm input,
+.contactForm textarea {
+  padding: 12px 15px;
+  font-size: 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.contactForm input:focus,
+.contactForm textarea:focus {
+  outline: none;
+  border-color: #7de0b2;
+  box-shadow: 0 0 5px #7de0b2aa;
+}
+
+.contactForm button {
+  width: 160px;
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #957dff, #7de0b2);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 0.3s ease;
+}
+
+.contactForm button:hover {
+  background: linear-gradient(90deg, #7e63f7, #58b38b);
+}
+
+@media (max-width: 768px) {
+  .contactSection {
+    padding: 40px 20px;
+    margin: 40px 15px 60px;
+  }
+
+  .contactSection h2 {
+    font-size: 2rem;
+  }
+
+  .contactSection p {
+    font-size: 1rem;
+  }
+
+  .contactForm {
+    max-width: 100%;
+  }
+
+  .contactForm button {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,49 @@
+.navbar {
+  background-color: #6a0dad; /* Royal purple */
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.brand {
+  font-weight: bold;
+  font-size: 1.6rem;
+  color: #ffffff !important;
+  transition: color 0.3s ease;
+}
+
+.brand:hover {
+  color: #7fffd4 !important; /* Aquamarine on hover */
+}
+
+.navItems {
+  gap: 1.2rem;
+}
+
+.navLink {
+  position: relative;
+  color: #ffffff !important;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.navLink:hover {
+  background-color: #50c878; /* Emerald green on hover */
+  color: #ffffff !important;
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.navLink:hover::after {
+  width: 100%;
+}

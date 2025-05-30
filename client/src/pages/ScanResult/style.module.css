@@ -1,0 +1,166 @@
+/* src/pages/ScanResult/style.module.css */
+
+.wrapper {
+  max-width: 100%;
+  margin: auto;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 12px;
+  background: #f7f9fc;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.1);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.urlDisplay {
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin: 20px 0;
+  color: #341f97;
+  word-break: break-word;
+  user-select: text;
+}
+
+.safe {
+  color: #00b894;
+  font-size: 1.6rem;
+  margin: 20px 0;
+  font-weight: 600;
+}
+
+.unsafe {
+  color: #d63031;
+  font-size: 1.6rem;
+  margin: 20px 0;
+  font-weight: 600;
+}
+
+button {
+  background: #6e44ff;
+  color: white;
+  border: none;
+  padding: 12px 36px;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-top: 30px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgb(110 68 255 / 0.4);
+}
+
+button:hover,
+button:focus {
+  background: #341f97;
+  box-shadow: 0 6px 20px rgb(52 31 151 / 0.6);
+  outline: none;
+}
+
+.scanResultMain {
+  padding: 80px 20px;
+  max-width: 100%;
+  margin: 0 ;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  background: linear-gradient(135deg, #f0f4ff 0%, #d9e4ff 100%);
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 50, 0.15);
+  animation: fadeInUp 0.8s ease forwards;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scanResultMain h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #1a237e;
+  text-shadow: 1px 1px 5px rgba(26, 35, 126, 0.3);
+}
+
+.scanResultMain p {
+  font-size: 1.2rem;
+  margin: 8px 0;
+  line-height: 1.5;
+  color: #333;
+}
+
+.resultSection {
+  margin-top: 40px;
+  padding: 30px 25px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(33, 150, 243, 0.2);
+  transition: box-shadow 0.3s ease;
+  max-width: 1050px;
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.resultSection:hover {
+  box-shadow: 0 12px 40px rgba(33, 150, 243, 0.4);
+}
+
+.resultSection p {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+strong {
+  color: #0d47a1;
+}
+
+/* Loading spinner for scanning state */
+.spinner {
+  margin: 20px auto 0;
+  width: 50px;
+  height: 50px;
+  border: 6px solid #cfd9df;
+  border-top: 6px solid #6e44ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .scanResultMain {
+    padding: 40px 15px;
+  }
+  .scanResultMain h1 {
+    font-size: 2rem;
+  }
+  .resultSection {
+    padding: 20px 15px;
+    min-height: 150px;
+  }
+  button {
+    padding: 10px 24px;
+    font-size: 1rem;
+  }
+  .urlDisplay {
+    font-size: 1rem;
+  }
+}
