@@ -3,132 +3,318 @@ const axios = require('axios');
 const validUrl = require('valid-url');
 const dns = require('dns');
 const cors = require('cors');
+
 require('dotenv').config();
 
 const app = express();
 
-// ✅ Allow your frontend (Vercel) to connect with this backend
+/*
+==================================================
+✅ ALLOWED ORIGINS
+==================================================
+*/
+
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://url-sentinel.vercel.app'
+];
+
+/*
+==================================================
+✅ CORS
+==================================================
+*/
+
 app.use(cors({
-  origin: 'https://url-sentinel.vercel.app', // 🔁 Replace with your real frontend URL
-   methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type']
+
+  origin: function (origin, callback) {
+
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(
+      new Error('Not allowed by CORS')
+    );
+  },
+
+  methods: ['GET', 'POST', 'OPTIONS'],
+
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization'
+  ],
+
+  credentials: true
 }));
+
+/*
+==================================================
+✅ JSON PARSER
+==================================================
+*/
 
 app.use(express.json());
 
 /*
-  🔐 These are scammy URL shorteners often used for 18+ or malicious ads
+==================================================
+🔐 SHORT URL DOMAINS
+==================================================
 */
+
 const SHORTENERS = [
-  'bit.ly', 'tinyurl.com', 'goo.gl', 't.co',
-  'ow.ly', 'is.gd', 'buff.ly', 'adf.ly',
-  'bit.do', 'mcaf.ee'
+
+  'bit.ly',
+  'tinyurl.com',
+  'goo.gl',
+  't.co',
+  'ow.ly',
+  'is.gd',
+  'buff.ly',
+  'adf.ly',
+  'bit.do',
+  'mcaf.ee'
 ];
 
 /*
-  🔍 This checks if a URL is a known shortener
+==================================================
+🔍 CHECK SHORT URL
+==================================================
 */
+
 function isShortened(urlString) {
+
   try {
-    const hostname = new URL(urlString).hostname.toLowerCase();
+
+    const hostname =
+      new URL(urlString)
+        .hostname
+        .toLowerCase();
+
     return SHORTENERS.includes(hostname);
+
   } catch {
+
     return false;
   }
 }
 
 /*
-  ✅ This checks if the URL is valid and real (domain exists)
+==================================================
+✅ VALIDATE URL
+==================================================
 */
-async function isValidUrl(urlString) {
-  if (!validUrl.isWebUri(urlString)) return false;
 
-  const hostname = new URL(urlString).hostname;
+async function isValidUrl(urlString) {
+
+  if (!validUrl.isWebUri(urlString)) {
+    return false;
+  }
+
+  const hostname =
+    new URL(urlString).hostname;
+
   return new Promise((resolve) => {
+
     dns.lookup(hostname, (err) => {
-      resolve(!err);
+
+      if (err) {
+        resolve(false);
+      } else {
+        resolve(true);
+      }
+
     });
+
   });
 }
 
 /*
-  🔐 (Optional) Use Google Safe Browsing API to check if link is dangerous
+==================================================
+📡 URL CHECK API
+==================================================
 */
-async function checkGoogleSafeBrowsing(urlToCheck) {
-  const apiKey = process.env.GOOGLE_API_KEY;
-  if (!apiKey) throw new Error('Google API key missing');
 
-  const requestBody = {
-    client: {
-      clientId: "yourapp",
-      clientVersion: "1.0"
-    },
-    threatInfo: {
-      threatTypes: ["MALWARE", "SOCIAL_ENGINEERING", "UNWANTED_SOFTWARE", "POTENTIALLY_HARMFUL_APPLICATION"],
-      platformTypes: ["ANY_PLATFORM"],
-      threatEntryTypes: ["URL"],
-      threatEntries: [{ url: urlToCheck }]
-    }
-  };
-
-  const response = await axios.post(
-    `https://safebrowsing.googleapis.com/v4/threatMatches:find?key=${apiKey}`,
-    requestBody
-  );
-
-  return response.data;
-}
-
-/*
-  📡 API endpoint for your frontend to call
-*/
 app.post('/api/check-url', async (req, res) => {
+
   try {
+
     const { url: urlToCheck } = req.body;
 
-    if (!urlToCheck || typeof urlToCheck !== 'string') {
-      return res.status(400).json({ error: 'Invalid URL input' });
-    }
+    if (
+      !urlToCheck ||
+      typeof urlToCheck !== 'string'
+    ) {
 
-    const valid = await isValidUrl(urlToCheck);
-    if (!valid) {
-      return res.status(400).json({ error: 'URL is not valid or domain not found' });
-    }
-
-    const shortened = isShortened(urlToCheck);
-    if (shortened) {
-      return res.json({
-        safe: false,
-        message: 'Shortened URLs detected. Please provide the expanded URL for accurate scanning.',
-        shortened: true,
-        url: urlToCheck
+      return res.status(400).json({
+        error: 'Invalid URL input'
       });
     }
 
-    // Optional: Uncomment this to use Google Safe Browsing API
-    // const googleResult = await checkGoogleSafeBrowsing(urlToCheck);
-    // if (googleResult && googleResult.matches) {
-    //   return res.json({
-    //     safe: false,
-    //     message: 'URL is flagged as unsafe by Google Safe Browsing',
-    //     threats: googleResult.matches
-    //   });
-    // }
+    const valid =
+      await isValidUrl(urlToCheck);
+
+    if (!valid) {
+
+      return res.status(400).json({
+
+        error:
+          'URL is not valid or domain not found'
+      });
+    }
+
+    const shortened =
+      isShortened(urlToCheck);
+
+    if (shortened) {
+
+      return res.json({
+
+        safe: false,
+
+        shortened: true,
+
+        url: urlToCheck,
+
+        message:
+          'Shortened URLs detected. Please be careful.'
+      });
+    }
 
     return res.json({
+
       safe: true,
-      message: 'URL appears safe',
+
       shortened: false,
-      url: urlToCheck
+
+      url: urlToCheck,
+
+      message: 'URL appears safe'
     });
+
   } catch (error) {
-    console.error('Error in /api/check-url:', error.message, error.stack);
-    res.status(500).json({ error: 'Internal Server Error' });
+
+    console.error(
+      'CHECK URL ERROR:',
+      error.message
+    );
+
+    return res.status(500).json({
+
+      error: 'Internal Server Error'
+    });
   }
 });
 
 /*
-  🚀 Start the backend server on port 4000 (or env PORT)
+==================================================
+🌐 MICROLINK PREVIEW API
+==================================================
 */
-const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+app.post(
+  '/api/link-preview',
+  async (req, res) => {
+
+    try {
+
+      const { url } = req.body;
+
+      if (!url) {
+
+        return res.status(400).json({
+          error: 'URL is required'
+        });
+      }
+
+      /*
+      ========================================
+      FETCH MICROLINK DATA
+      ========================================
+      */
+
+      const response = await axios.get(
+        'https://api.microlink.io/',
+        {
+          params: {
+            url
+          }
+        }
+      );
+
+      /*
+      ========================================
+      EXTRACT DATA
+      ========================================
+      */
+
+      const data = response.data.data;
+
+      return res.json({
+
+        title:
+          data.title || '',
+
+        description:
+          data.description || '',
+
+        image:
+          data.image?.url || '',
+
+        url:
+          data.url || url
+      });
+
+    } catch (error) {
+
+      console.log(
+        'MICROLINK ERROR:',
+        error.response?.data ||
+        error.message
+      );
+
+      return res.status(500).json({
+
+        error:
+          'Failed to fetch preview'
+      });
+    }
+  }
+);
+
+/*
+==================================================
+🏠 HOME ROUTE
+==================================================
+*/
+
+app.get('/', (req, res) => {
+
+  return res.json({
+
+    success: true,
+
+    message:
+      'URL Sentinel Backend Running'
+  });
+});
+
+/*
+==================================================
+🚀 START SERVER
+==================================================
+*/
+
+const PORT =
+  process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+
+  console.log(
+    `✅ Server running on port ${PORT}`
+  );
+});
